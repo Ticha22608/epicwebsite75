@@ -5,14 +5,61 @@
     <title>epicreloj75</title>
 </head>
 <body style="background: #000000">
-<p class="titulo">e</p>
+    <div class="center">
+        <p class="titulo" id="title">eaesa</p>
+    </div>
+
+</body>
 <style>
     .titulo {
         text-align: center;
         color: #ffffff;
         font-family: "Segoe UI",serif;
-        font-size: 80px;
+        font-size: 250px;
+    }
+    body, html {
+        height: 100%;
+        margin: 0;
+    }
+    .center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
     }
 </style>
-</body>
+
+<script>
+
+    let date = 0;
+    let hours = 0;
+    let minutes = 0;
+    let seconds = 0;
+
+    clock();
+    function clock() {
+        date = new Date();
+        hours = date.getHours();
+        minutes = date.getMinutes();
+        seconds = date.getSeconds();
+        switch (true) {
+            case (hours < 10):
+                hours = "0"+hours;
+                break;
+            case (minutes < 10):
+                minutes = "0"+minutes;
+                break;
+            case (seconds < 10):
+                seconds = "0"+seconds;
+                break;
+            default:
+                break;
+        }
+        document.getElementById("title").innerText = hours+":"+minutes+":"+seconds;
+        setTimeout(clock, 500);
+    }
+
+
+
+</script>
 </html>
