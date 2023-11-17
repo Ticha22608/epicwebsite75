@@ -7,6 +7,7 @@
 <body style="background: #000000">
     <div class="center">
         <p class="titulo" id="title"></p>
+        <p class="subtitle" id="subtitle"></p>
     </div>
     <p class="button" id="24or12" onclick="setting()"><br>change format</p>
 
@@ -17,6 +18,12 @@
         color: #ffffff;
         font-family: "Segoe UI",serif;
         font-size: 200px;
+    }
+    .subtitle {
+        text-align: center;
+        color: #ffffff;
+        font-family: "Segoe UI",serif;
+        font-size: 50px;
     }
     .button {
         color: #00AA00;
@@ -58,11 +65,13 @@
             }
             if (minutes < 10) minutes = "0"+minutes;
             if (seconds < 10) seconds = "0"+seconds;
-            document.getElementById("title").innerText = hours+":"+minutes+":"+seconds+amOrPm;
+            document.getElementById("title").innerText = hours+":"+minutes+":"+seconds;
+            document.getElementById("subtitle").innerText = amOrPm;
         } else {
             if (minutes < 10) minutes = "0"+minutes;
             if (seconds < 10) seconds = "0"+seconds;
             document.getElementById("title").innerText = hours+":"+minutes+":"+seconds;
+            document.getElementById("subtitle").innerText = "";
         }
         setTimeout(clock, 10);
     }
