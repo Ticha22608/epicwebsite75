@@ -6,8 +6,9 @@
 </head>
 <body style="background: #000000">
     <div class="center">
-        <p class="titulo" id="title">eaesa</p>
+        <p class="titulo" id="title"></p>
     </div>
+    <p class="button" id="24or12" onclick="setting()"><br>change format</p>
 
 </body>
 <style>
@@ -16,6 +17,12 @@
         color: #ffffff;
         font-family: "Segoe UI",serif;
         font-size: 250px;
+    }
+    .button {
+        color: #00AA00;
+        font-size: 50px;
+        font-family: 'Segoe UI',serif;
+        margin: 0;
     }
     body, html {
         height: 100%;
@@ -35,6 +42,8 @@
     let hours = 0;
     let minutes = 0;
     let seconds = 0;
+    let timeFormat = 0;
+    let amOrPm;
 
     clock();
     function clock() {
@@ -42,23 +51,26 @@
         hours = date.getHours();
         minutes = date.getMinutes();
         seconds = date.getSeconds();
-        switch (true) {
-            case (hours < 10):
-                hours = "0"+hours;
-                break;
-            case (minutes < 10):
-                minutes = "0"+minutes;
-                break;
-            case (seconds < 10):
-                seconds = "0"+seconds;
-                break;
-            default:
-                break;
+        if (timeFormat === 0) {
+            if (hours > 12) {
+                hours = hours -= 12;
+                amOrPm = "pm";
+            }
+            if (minutes < 10) minutes = "0"+minutes;
+            if (seconds < 10) seconds = "0"+seconds;
+            document.getElementById("title").innerText = hours+":"+minutes+":"+seconds+amOrPm;
+        } else {
+            if (minutes < 10) minutes = "0"+minutes;
+            if (seconds < 10) seconds = "0"+seconds;
+            document.getElementById("title").innerText = hours+":"+minutes+":"+seconds;
         }
-        document.getElementById("title").innerText = hours+":"+minutes+":"+seconds;
-        setTimeout(clock, 500);
+        setTimeout(clock, 10);
     }
 
+    function setting() {
+        if (timeFormat === 0) timeFormat = 1;
+        else timeFormat = 0;
+    }
 
 
 </script>
