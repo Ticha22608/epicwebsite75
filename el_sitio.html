@@ -9,19 +9,22 @@
 <img src="https://media.discordapp.net/attachments/919659532911784028/1172980029039321208/ezgif.com-gif-maker_1.gif?ex=656249c7&is=654fd4c7&hm=e25a73d8b48645cc4672741f453b6083c618d761b0218c419c8545ad869148b2&=" height="200" alt="">
 <p style="color: #00AA00; font-family: 'gabarito',serif; font-size: 80px; margin: 0; text-align: center">🌌 <u>bienvenidos al epic sitio 75</u> ☀️</p>
 <img src="https://cdn.discordapp.com/attachments/919659532911784028/1172980028523417650/bill_ls.gif?ex=656249c7&is=654fd4c7&hm=a3d9aaa4e4e53853a1539d490932392b02ba4dec547063438a2100bb54405714&" height="200" alt="">
-<a class="button" href="./el_reloj.html">reloj</a>
-<p class="button" id="subtitulo" onclick="updateCounter()">has hecho clic en mi 0 veces</p>
-<p class="button" id="p2" onclick="onClick1()">el boton</p>
-<p class="button" id="p3" onclick="onClick2()">el segundo botón</p>
-<p class="button" id="p4" onclick="onClick3()">el tercer botón</p>
-<p class="button" id="p5" onclick="onClick4()">the fourth button</p>
-<p class="button" id="p6" onclick="onClick5()">the fifth button</p>
-<p class="button" id="p7" onclick="onClick6()">the sixth button</p>
-<p class="button" id="p8" onclick="onClick7()">el séptimo botón</p>
-<p class="button" id="p9" onclick="onClick8()">el octavo botón</p>
+<div class="button">
+    <a href="./el_reloj.html">reloj</a>
+    <p id="subtitulo" onclick="updateCounter()">has hecho clic en mi 0 veces</p>
+    <p id="p2" onclick="onClick1()">el boton</p>
+    <p id="p3" onclick="onClick2()">el segundo botón</p>
+    <p id="p4" onclick="onClick3()">el tercer botón</p>
+    <p id="p5" onclick="onClick4()">the fourth button</p>
+    <p id="p6" onclick="onClick5()">the fifth button</p>
+    <p id="p7" onclick="onClick6()">the sixth button</p>
+    <p id="p8" onclick="onClick7()">el séptimo botón</p>
+    <p id="p9" onclick="onClick8()">el octavo botón</p>
+    <p id="p10" onclick="onClick9()">el noveno botón</p>
+</div>
 
 <style>
-    .button {
+    .button p, a {
         color: #00AA00;
         font-size: 50px;
         font-family: 'gabarito',serif;
@@ -34,6 +37,8 @@
     }
 </style>
 
+</body>
+</html>
 <script>
     let variable = 0;
     function updateCounter() {
@@ -220,12 +225,35 @@
         timeout = setTimeout(actualizarTimer, 10);
     }
 
-
-
-
+    let data;
+    let foundDragonEgg;
+    let endOfArray;
+    async function onClick9() {
+        const response = await fetch("https://raw.githubusercontent.com/BrookeAFK/brookeafk-api/main/events.js");
+        data = await response.json();
+        let i = 0;
+        foundDragonEgg = false;
+        endOfArray = false;
+        while (foundDragonEgg === false && endOfArray === false) {
+            if (data[i]["event"] === "Dragon Egg") {
+                console.log("FOUND! dragon egg in data["+i+"]['event']");
+                if (data[i]["timestamp"] < Date.now()) {
+                    console.log("this event already happened. skipping...");
+                    i++;
+                } else {
+                    console.log("we have a winner (hasn't happened yet)");
+                    foundDragonEgg = true;
+                }
+            } else if (i === data.length-1) {
+                console.log("no dragon eggs were found");
+                endOfArray = true;
+            } else i++;
+        }
+        let time = new Date(data[i]["timestamp"]);
+        console.log(time);
+        alert("next dragon egg event is on: "+time);
+    }
 
 </script>
-</body>
-</html>
 
 
