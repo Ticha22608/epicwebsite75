@@ -9,6 +9,7 @@
         <p class="titulo" id="title"></p>
         <p class="subtitle" id="subtitle"></p>
     </div>
+    <p class="text" id="date">aaaa</p>
     <p class="button" id="24or12" onclick="setting()"><br>change format</p>
 
 </body>
@@ -16,19 +17,25 @@
     .titulo {
         text-align: center;
         color: #ffffff;
-        font-family: "Segoe UI",serif;
+        font-family: "gabarito",serif;
         font-size: 200px;
     }
     .subtitle {
         text-align: center;
         color: #ffffff;
-        font-family: "Segoe UI",serif;
+        font-family: "gabarito",serif;
         font-size: 50px;
     }
     .button {
         color: #00AA00;
         font-size: 50px;
-        font-family: 'Segoe UI',serif;
+        font-family: 'gabarito',serif;
+        margin: 0;
+    }
+    .text {
+        color: #ffffff;
+        font-size: 50px;
+        font-family: 'gabarito',serif;
         margin: 0;
     }
     body, html {
@@ -40,6 +47,11 @@
         align-items: center;
         justify-content: center;
         height: 100%;
+    }
+    @font-face {
+        font-family: gabarito;
+        src:
+        url(../gabarito.ttf);
     }
 </style>
 
@@ -62,6 +74,9 @@
             if (hours > 12) {
                 hours = hours -= 12;
                 amOrPm = "pm";
+            } else {
+                if (hours === 0) hours = 12;
+                amOrPm = "am"
             }
             if (minutes < 10) minutes = "0"+minutes;
             if (seconds < 10) seconds = "0"+seconds;
@@ -73,6 +88,7 @@
             document.getElementById("title").innerText = hours+":"+minutes+":"+seconds;
             document.getElementById("subtitle").innerText = "";
         }
+        document.getElementById("date").innerText = date;
         setTimeout(clock, 10);
     }
 
