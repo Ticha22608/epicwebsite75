@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>epicreloj75</title>
 </head>
 <body style="background: #000000">
 <link rel="shortcut icon" type="image/x-icon" href="epicicon75.ico">
-    <div class="center">
+    <div class="center" id="center">
         <p class="titulo" id="title"></p>
         <p class="subtitle" id="subtitle"></p>
     </div>
     <p class="text" id="date">if you see this, something's gone terribly wrong</p>
     <p class="button" id="24or12" onclick="setting()"><br>change format</p>
+    <p class="button" onclick="sunrise()">change sunrise</p>
+    <p class="button" onclick="oledMode()">toggle oled mode</p>
     <a class="button" href="./">go back</a>
 
 </body>
@@ -21,13 +22,30 @@
         color: #ffffff;
         font-family: "gabarito",serif;
         font-size: 200px;
+        animation: _doesthiswork 5s infinite;
+    }
+
+
+    .titulo:hover {
+        background: linear-gradient(47deg, #000000 0%, #ffffff 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        /*-moz-background-clip: text;*/
+        /*-moz-text-fill-color: transparent;*/
     }
     .subtitle {
         text-align: center;
         color: #ffffff;
         font-family: "gabarito",serif;
         font-size: 50px;
+        animation: _doesthiswork 5s infinite;
     }
+    /*@keyframes _doesthiswork {*/
+    /*    0% { transform: scale(100%)}*/
+    /*    50% { transform: scale(10%)}*/
+    /*    100% { transform: scale(100%)}*/
+    /*}*/
     .button {
         color: #00AA00;
         font-size: 50px;
@@ -49,6 +67,7 @@
         align-items: center;
         justify-content: center;
         height: 100%;
+        background: #000000;
     }
     @font-face {
         font-family: gabarito;
@@ -63,8 +82,10 @@
     let hours = 0;
     let minutes = 0;
     let seconds = 0;
-    let timeFormat = 0;
+    let timeFormat = false; //true: 24-hour time, false: 12-hour time, default is "false"
+    let altSunrise = true;
     let amOrPm;
+    let oledBackround = true;
 
     clock();
     function clock() {
@@ -72,12 +93,25 @@
         hours = date.getHours();
         minutes = date.getMinutes();
         seconds = date.getSeconds();
-        if (timeFormat === 0) {
+        if (!oledBackround) {
+            if (hours >= 0) document.getElementById("center").style.background = "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,142,1) 60%)";
+            if (hours >= 6) {
+                if (!altSunrise) document.getElementById("center").style.background =
+                    "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(9,4,75,1) 6%, rgba(18,18,198,1) 31%, rgba(96,52,200,1) 48%, rgba(186,84,141,1) 68%, rgba(245,180,83,1) 100%)";
+                else document.getElementById("center").style.background =
+                    "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(78,10,66,1) 29%, rgba(178,82,203,1) 66%, rgba(21,224,213,1) 100%)";
+            }
+            if (hours >= 8) document.getElementById("center").style.background = "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,200,255,1) 60%)";
+            if (hours >= 17) document.getElementById("center").style.background =
+                "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(61,9,74,1) 17%, rgba(98,30,69,1) 26%, rgba(195,88,25,1) 60%, rgba(255,220,1,1) 94%)";
+            if (hours >= 21) document.getElementById("center").style.background = "linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,142,1) 60%)";
+        }
+        if (timeFormat === false) {
             if (hours > 12) {
                 hours = hours -= 12;
                 amOrPm = "pm";
             } else if (hours === 0) {
-                console.log(hours);
+                //console.log(hours);
                 hours = 12;
                 amOrPm = "am"
             } else if (hours === 12) amOrPm = "pm";
@@ -87,20 +121,45 @@
             document.getElementById("title").innerText = hours+":"+minutes+":"+seconds;
             document.getElementById("subtitle").innerText = amOrPm;
         } else {
+            if (hours < 10) hours = "0"+hours;
             if (minutes < 10) minutes = "0"+minutes;
             if (seconds < 10) seconds = "0"+seconds;
             document.getElementById("title").innerText = hours+":"+minutes+":"+seconds;
             document.getElementById("subtitle").innerText = "";
         }
+
         document.getElementById("date").innerText = date;
         setTimeout(clock, 10);
     }
 
     function setting() {
-        if (timeFormat === 0) timeFormat = 1;
-        else timeFormat = 0;
+        timeFormat = !timeFormat;
     }
 
+    function sunrise() { //un reptil... un reptil de mierda me reemplazó... (<- not true BTW)
+        altSunrise = !altSunrise;
+    }
+
+    function randomGradient() {
+        let graNum = [
+            Math.ceil(Math.random() * 11) - 1,
+            Math.ceil(Math.random() * 11) - 1,
+            Math.ceil(Math.random() * 11) - 1,
+            Math.ceil(Math.random() * 11) - 1,
+            Math.ceil(Math.random() * 11) - 1,
+            Math.ceil(Math.random() * 11) - 1,
+            Math.ceil(Math.random() * 11) - 1,
+            Math.ceil(Math.random() * 11) - 1,
+        ]
+        for (let i = 0;i === 7;i++) console.log(graNum[i]);
+        // console.log(graNum[1]);
+    }
+
+    function oledMode() {
+        oledBackround = !oledBackround;
+        if (oledBackround) document.getElementById("center").style.background = "#000000"
+        console.log(oledBackround);
+    }
 
 </script>
-</html>
+<!--</html>-->
